@@ -1,8 +1,9 @@
 from datetime import datetime
 class Student:
-    def __init__(self, name):
+    def __init__(self, name, grades):
         self.name = name
         self._enrollments = []
+        self.grades = {}
 
     def enroll(self, course):
         if isinstance(course, Course):
@@ -11,6 +12,12 @@ class Student:
             course.add_enrollment(enrollment)
         else:
             raise TypeError("course must be an instance of Course")
+        
+    def aggregate_average_grade(self):
+        total_grades = sum(self._grades.values())
+        num_courses = len(self._grades)
+        average_grade = total_grades / num_courses
+        return average_grade    
 
     def get_enrollments(self):
         return self._enrollments.copy()
